@@ -1,3 +1,4 @@
+var globalStorage = [];
 const saveBtnElArray = document.querySelectorAll(".saveBtn");
 const userInputEl = document.querySelectorAll(".userInput");
 var datePlaceEl = document.getElementById("datePlace");
@@ -32,7 +33,26 @@ function interfaceDisplay() {
         }
     });
 }
+function saveEvent() {
+    saveBtnElArray.forEach(function (button) {
+        button.addEventListener("click", handleBtnClick);
+    });
+}
+function handleBtnClick(e) {
+    var currentTextArea = e.currentTarget.previousElementSibling;
+    console.log(currentTextArea);
+    var dataHour = currentTextArea.getAttribute("data-hour");
+    localStorage.setItem(dataHour, currentTextArea.value);
+}
+function pullLocalStorage() {
+    userInputEl.forEach(function (textarea) {
+        console.log(textarea);
+        var dataHour = textarea.getAttribute("data-hour");
+        var localStoredText = localStorage.getItem(dataHour);
+        textarea.value = localStoredText;
+    });
+}
+pullLocalStorage();
+saveEvent();
 setInterval(interfaceDisplay, 300000);
 interfaceDisplay();
-
-button.addEventListener("click");
